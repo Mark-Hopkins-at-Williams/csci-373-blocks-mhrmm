@@ -1,0 +1,34 @@
+{
+  "tests": [
+    {
+      "name": "TestOne",
+      "setup": "sudo -H pip3 install pytest cryptography >/dev/null",
+      "run": "python3 autograder.py R0W4P0Cosebn6x2nFfykJyr4wTJ62KqrR6GThvlAMYU= TestOne",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 6
+    },
+    {
+      "name": "TestPuzzleB",
+      "setup": "sudo -H pip3 install pytest cryptography >/dev/null",
+      "run": "python3 autograder.py R0W4P0Cosebn6x2nFfykJyr4wTJ62KqrR6GThvlAMYU= TestTwo",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 2
+    },
+    {
+      "name": "TestPuzzleC",
+      "setup": "sudo -H pip3 install pytest cryptography >/dev/null",
+      "run": "python3 autograder.py R0W4P0Cosebn6x2nFfykJyr4wTJ62KqrR6GThvlAMYU= TestThree",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 2
+    }
+  ]
+}
