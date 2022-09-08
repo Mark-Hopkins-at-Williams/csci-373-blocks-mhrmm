@@ -256,7 +256,7 @@ def puzzle_solution():
     return dfs(StandardSnakePuzzle())
 
 def solution_b():
-    return dfs(SnakePuzzleC())
+    return dfs(SnakePuzzleB())
 
 def solution_c():
     return dfs(SnakePuzzleC())
