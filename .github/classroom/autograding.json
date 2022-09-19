@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "TestOne",
-      "setup": "sudo -H pip3 install pytest cryptography >/dev/null",
+      "setup": "sudo -H pip3 install pytest cryptography numpy >/dev/null",
       "run": "python3 autograder.py R0W4P0Cosebn6x2nFfykJyr4wTJ62KqrR6GThvlAMYU= TestOne",
       "input": "",
       "output": "",
@@ -12,7 +12,7 @@
     },
     {
       "name": "TestPuzzleB",
-      "setup": "sudo -H pip3 install pytest cryptography >/dev/null",
+      "setup": "sudo -H pip3 install pytest cryptography numpy >/dev/null",
       "run": "python3 autograder.py R0W4P0Cosebn6x2nFfykJyr4wTJ62KqrR6GThvlAMYU= TestTwo",
       "input": "",
       "output": "",
@@ -22,7 +22,7 @@
     },
     {
       "name": "TestPuzzleC",
-      "setup": "sudo -H pip3 install pytest cryptography >/dev/null",
+      "setup": "sudo -H pip3 install pytest cryptography numpy >/dev/null",
       "run": "python3 autograder.py R0W4P0Cosebn6x2nFfykJyr4wTJ62KqrR6GThvlAMYU= TestThree",
       "input": "",
       "output": "",
