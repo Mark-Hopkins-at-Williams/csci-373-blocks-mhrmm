@@ -27,20 +27,13 @@ def move(position, direction):
     """
 
     x, y, z = position
-    if direction == "E":
-        return x+1, y, z
-    elif direction == "W":
-        return x-1, y, z
-    elif direction == "N":
-        return x, y+1, z
-    elif direction == "S":
-        return x, y-1, z
-    elif direction == "U":
-        return x, y, z+1
-    elif direction == "D":
-        return x, y, z-1
-    else:
+    deltas = {"E": (1, 0, 0), "W": (-1, 0, 0), "N": (0, 1, 0),
+              "S": (0, -1, 0), "U": (0, 0, 1), "D": (0, 0, -1)}
+    if direction not in deltas:
         raise ValueError(f"Unrecognized direction: {direction}")
+    else:
+        delta_x, delta_y, delta_z = deltas[direction]
+        return x + delta_x, y + delta_y, z + delta_z
 
 
 def positions_visited(trajectory):
@@ -94,6 +87,21 @@ def shift_into_positive_space(positions):
 
 
 def is_connected(positions):
+    """Checks whether a set of 3-d coordinates form a connected graph.
+
+    Two coordinates are connected if they differ by one in exactly one dimension.
+
+    Parameters
+    ----------
+    positions : list[tuple[int]]
+        A list of 3-d coordinates.
+
+    Returns
+    -------
+    bool
+        Whether the coordinates form a connected graph
+    """
+
     if len(positions) == 0:
         return True
     else:
@@ -115,7 +123,6 @@ class SnakePuzzleSearchSpace(SearchSpace):
 
     def __init__(self, multipliers, cube_width):
         super().__init__()
-        #self.multipliers = (2, 2, 2, 2, 1, 1, 1, 2, 2, 1, 1, 2, 1, 2, 1, 1, 2)
         self.multipliers = multipliers
         self.pivot_points = set([sum(self.multipliers[:i]) for i in range(len(self.multipliers))])
         self.start_state = ('E',)
@@ -127,6 +134,7 @@ class SnakePuzzleSearchSpace(SearchSpace):
 
 
     def at_pivot(self, state):
+        """Returns whether we're at a 'choice point' in the puzzle."""
         return len(state) in self.pivot_points
 
 
@@ -186,7 +194,7 @@ class SnakePuzzleSearchSpace(SearchSpace):
         max_x = max([x for x,_,_ in positions])
         max_y = max([y for _,y,_ in positions])
         max_z = max([z for _,_,z in positions])
-        unvisited = list(self.goal_positions - set(positions))
+        unvisited = list(self.goal_positions - set(positions)) # we check to see that we haven't bisected the unvisited coordinates into two distinct regions
         return max(max_x, max_y, max_z) < self.cube_width and len(set(positions)) == len(positions) and is_connected(unvisited)
 
     def get_successors(self, state):
@@ -245,13 +253,6 @@ class SnakePuzzleC(SnakePuzzleSearchSpace):
         super().__init__(multipliers=(1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 2, 2, 1, 2, 1, 2),
                          cube_width=3)
 
-
-class LargeSnakePuzzle(SnakePuzzleSearchSpace):
-    def __init__(self):
-        super().__init__(multipliers=(1,3,1,1,1,1,1,1,1,1,1,2,1,3,1,1,1,3,2,1,1,1,1,1,
-                                      2,2,1,1,1,1,1,1,1,1,2,1,2,1,2,1,3,1,1,2,1,2),
-                         cube_width=4)
-
 def puzzle_solution():
     return dfs(StandardSnakePuzzle())
 
@@ -261,5 +262,3 @@ def solution_b():
 def solution_c():
     return dfs(SnakePuzzleC())
 
-if __name__ == '__main__':
-    print('-'.join(dfs(ThirdSnakePuzzle())))
